@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-Route::get('/',[HomeController::class,'dashboard'])->name('dashboard');
-Route::get('/categories',[HomeController::class,'categories'])->name('categories');
+Route::get('/',[DashboardController::class,'dashboard'])->name('dashboard');
+Route::get('/categories',[CategoryController::class,'list'])->name('category.list');
+Route::get('/products',[ProductController::class,'list'])->name('product.list');
+Route::get('/orders',[OrderController::class,'list'])->name('order.list');

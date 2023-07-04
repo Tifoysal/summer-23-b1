@@ -9,8 +9,8 @@ class CategoryController extends Controller
 {
     public function list()
     {
-        $categories=Category::all();
-
+       
+        $categories=Category::paginate(5);
 
         return view('backend.pages.category.list',compact('categories'));
     }
@@ -24,14 +24,19 @@ class CategoryController extends Controller
 
 
     public function categoryStore(Request $request)
-    {
+    {  
+
+        $request->validate([
+            'category_name'=>'required'
+        ]);
+
 //        dd($request->all());
         // sql= insert into categories (name,description) values()
         //eloquent ORM
         Category::create([
            //bam pase table er column name => dan pase input field er nam
             'name'=>$request->category_name,
-            'description'=>$request->description
+            'description'=>$request->description// nullable
         ]);
 
         return redirect()->route('category.list');

@@ -20,9 +20,9 @@
         </thead>
         <tbody>
 
-        @foreach($categories as $cat)
+        @foreach($categories as $key=>$cat)
         <tr>
-            <th scope="row">{{$cat->id}}</th>
+            <th scope="row">{{$key+1}}</th>
             <td>{{$cat->name}}</td>
             <td>{{$cat->status}}</td>
             <td>{{$cat->description}}</td>
@@ -31,5 +31,7 @@
 
         </tbody>
     </table>
+
+    {{$categories->links()}}
 
 @endsection

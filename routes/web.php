@@ -32,4 +32,7 @@ Route::post('/brand-store',[BrandController::class,'store'])->name('brand.store'
 
 
 Route::get('/products',[ProductController::class,'list'])->name('product.list');
+Route::get('/create-product-form',[ProductController::class,'createForm'])->name('product.create.form');
+Route::post('/product-store',[ProductController::class,'store'])->name('product.store');
+
 Route::get('/orders',[OrderController::class,'list'])->name('order.list');

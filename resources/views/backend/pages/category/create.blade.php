@@ -4,8 +4,14 @@
 @section('content')
 
 
-    <form action="{{route('category.store')}}" method="post">
+    <form action="{{route('category.store')}}" method="post" enctype="multipart/form-data">
         @csrf
+
+        @if($errors->any())
+        @foreach($errors->all() as $err)
+        <p class="alert alert-danger">{{$err}}</p>
+        @endforeach
+        @endif
 
         <div class="form-group">
             <label for="">Name</label>

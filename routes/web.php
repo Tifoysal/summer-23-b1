@@ -6,6 +6,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,10 +19,18 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
-Route::get('/',[DashboardController::class,'dashboard'])->name('dashboard');
-Route::get('/categories',[CategoryController::class,'list'])->name('category.list');
-Route::get('/category-create-form',[CategoryController::class,'categoryForm'])->name('category.create.form');
-Route::post('/category-store',[CategoryController::class,'categoryStore'])->name('category.store');
+Route::get('/admin/login',[UserController::class,'login'])->name('admin.login');
+
+Route::group(['prefix'=>'admin','middleware'=>'auth'],function(){
+
+    Route::get('/',[DashboardController::class,'dashboard'])->name('dashboard');
+
+    Route::get('/categories',[CategoryController::class,'list'])->name('category.list');
+    Route::get('/category-create-form',[CategoryController::class,'categoryForm'])->name('category.create.form');
+    Route::post('/category-store',[CategoryController::class,'categoryStore'])->name('category.store');
+    
+
+
 
 Route::get('/brand-list',[BrandController::class,'list'])->name('brand.list');
 
@@ -36,3 +45,5 @@ Route::get('/create-product-form',[ProductController::class,'createForm'])->name
 Route::post('/product-store',[ProductController::class,'store'])->name('product.store');
 
 Route::get('/orders',[OrderController::class,'list'])->name('order.list');
+
+});

@@ -19,10 +19,15 @@ use App\Http\Controllers\UserController;
 |
 */
 
+//show login form
 Route::get('/admin/login',[UserController::class,'login'])->name('admin.login');
+
+//submit login form
+Route::post('/admin/do-login',[UserController::class,'doLogin'])->name('admin.do-login');
 
 Route::group(['prefix'=>'admin','middleware'=>'auth'],function(){
 
+    Route::get('/logout',[UserController::class,'logout'])->name('admin.logout');
     Route::get('/',[DashboardController::class,'dashboard'])->name('dashboard');
 
     Route::get('/categories',[CategoryController::class,'list'])->name('category.list');

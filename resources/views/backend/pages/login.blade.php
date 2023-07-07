@@ -80,6 +80,7 @@
     color: #fff;
 }
 </style>
+
 <div class="sidenav">
          <div class="login-main-text">
             <h2>Application<br> Login Page</h2>
@@ -88,19 +89,37 @@
       </div>
       <div class="main">
          <div class="col-md-6 col-sm-12">
-            <div class="login-form">
-               <form>
+            <div class="login-form" >
+
+            @if(session()->has('msg'))
+                <p class="alert alert-success">{{session()->get('msg')}}</p>
+            @endif
+
+               <form action="{{route('admin.do-login')}}" method="post">
+
+                @if($errors->any())
+
+                    @foreach($errors->all() as $err)
+                    <p class="alert alert-danger">{{$err}}</p>
+                    @endforeach 
+
+                @endif
+
+
+                @csrf
+
                   <div class="form-group">
-                     <label>User Name</label>
-                     <input type="text" class="form-control" placeholder="User Name">
+                     <label>Email</label>
+                     <input name="email" required type="email" class="form-control" placeholder="User Email">
                   </div>
                   <div class="form-group">
                      <label>Password</label>
-                     <input type="password" class="form-control" placeholder="Password">
+                     <input name="password" required type="password" class="form-control" placeholder="Password">
                   </div>
                   <button type="submit" class="btn btn-black">Login</button>
-                  <button type="submit" class="btn btn-secondary">Register</button>
                </form>
+
+
             </div>
          </div>
       </div>

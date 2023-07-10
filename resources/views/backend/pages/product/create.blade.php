@@ -29,6 +29,20 @@
             <textarea name="description" class="form-control" placeholder="Enter Description"></textarea>
         </div>
 
+
+        <div class="form-group">
+            <label for="a">Select Category</label>
+           <select class="form-control" name="category_id" id="a">
+            
+           @foreach($categories as $cat)
+            <option value="{{$cat->id}}">{{$cat->name}}</option>
+           
+            @endforeach
+           
+        </select>
+        </div>
+
+
         <div class="form-group">
            <label for="">Upload Image</label>
            <input  type="file" class="form-control" required name="product_image" placeholder="Enter Product image">

@@ -4,10 +4,11 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Website\ProductController as WebsiteProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\Website\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,6 +20,15 @@ use App\Http\Controllers\UserController;
 |
 */
 
+//routes for website
+Route::get('/',[HomeController::class,'home'])->name('home');
+Route::get('/all-products',[WebsiteProductController::class,'allProducts'])->name('website.all-products');
+
+
+
+
+
+//routes for admin panel
 //show login form
 Route::get('/admin/login',[UserController::class,'login'])->name('admin.login');
 

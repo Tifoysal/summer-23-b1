@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Website\ProductController as WebsiteProductController;
@@ -23,8 +24,12 @@ use App\Http\Controllers\Website\HomeController;
 //routes for website
 Route::get('/',[HomeController::class,'home'])->name('home');
 Route::get('/all-products',[WebsiteProductController::class,'allProducts'])->name('website.all-products');
+Route::get('/customer-login',[HomeController::class,'login'])->name('customer.login');
+Route::post('/customer-dologin',[CustomerController::class,'dologin'])->name('customer.dologin');
 
 
+Route::get('/customer-registration',[HomeController::class,'registration'])->name('customer.registration');
+Route::post('/customer-store',[CustomerController::class,'store'])->name('customer.store');
 
 
 

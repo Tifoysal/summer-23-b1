@@ -30,9 +30,9 @@
 
                         <ul>
 
-                            <li><a href=""><i class="fa fa-user"></i> Login</a></li>
+                            <li><a href="{{route('customer.login')}}"><i class="fa fa-user"></i> Login</a></li>
 
-                            <li><a href=""><i class="fa fa-lock"></i> Register</a></li>
+                            <li><a href="{{route('customer.registration')}}"><i class="fa fa-lock"></i> Register</a></li>
 
                         </ul>
 

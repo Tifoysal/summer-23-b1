@@ -17,5 +17,19 @@ class HomeController extends Controller
       return view('frontend.pages.home',compact('allProducts'));
     }
 
+
+    public function login() 
+    {
+      return view('frontend.pages.login');  
+    }
+
+
+    public function registration() 
+    {
+      return view('frontend.pages.registration');  
+    }
+
+
+    
     
 }

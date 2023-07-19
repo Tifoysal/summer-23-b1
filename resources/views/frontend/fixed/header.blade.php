@@ -156,7 +156,9 @@
 
                   @foreach($cats as $cat)
                   
-                    <li><a href="">{{$cat->name}}</a></li>
+                    <li>
+                        <a href="{{route('category.products',$cat->id)}}">{{$cat->name}}</a>
+                    </li>
 
                 @endforeach
 

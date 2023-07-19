@@ -13,4 +13,15 @@ class ProductController extends Controller
       
        return view('frontend.pages.all-product'); 
     }
+
+
+    public function categoryWiseProducts($catId)
+    {
+        
+       $category= Category::with('products')->find($catId);
+        return view('frontend.pages.category-products',compact('category'));
+       
+       
+        
+    }
 }

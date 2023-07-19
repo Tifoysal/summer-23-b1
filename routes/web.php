@@ -27,6 +27,7 @@ Route::get('/all-products',[WebsiteProductController::class,'allProducts'])->nam
 Route::get('/customer-login',[HomeController::class,'login'])->name('customer.login');
 Route::post('/customer-dologin',[CustomerController::class,'dologin'])->name('customer.dologin');
 
+Route::get('/products-under-category/{categoryId}',[WebsiteProductController::class,'categoryWiseProducts'])->name('category.products');
 
 Route::get('/customer-registration',[HomeController::class,'registration'])->name('customer.registration');
 Route::post('/customer-store',[CustomerController::class,'store'])->name('customer.store');

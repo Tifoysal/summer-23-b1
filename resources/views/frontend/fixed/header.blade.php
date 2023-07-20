@@ -70,11 +70,11 @@
 
                     <div class="search-form">
 
-                        <form class="navbar-form" role="search">
+                        <form action="{{route('search')}}" class="navbar-form" role="search">
 
                             <div class="form-group">
 
-                              <input type="text" class="form-control" placeholder="What do you need...">
+                              <input name="search" type="text" class="form-control" placeholder="Search products . . .">
 
                             </div>
 

@@ -23,6 +23,9 @@ use App\Http\Controllers\Website\HomeController;
 
 //routes for website
 Route::get('/',[HomeController::class,'home'])->name('home');
+
+Route::get('/search',[HomeController::class,'search'])->name('search');
+
 Route::get('/all-products',[WebsiteProductController::class,'allProducts'])->name('website.all-products');
 Route::get('/customer-login',[HomeController::class,'login'])->name('customer.login');
 Route::post('/customer-dologin',[CustomerController::class,'dologin'])->name('customer.dologin');

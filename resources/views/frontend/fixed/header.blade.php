@@ -166,6 +166,39 @@
 
                 </div>
 
+                <div class="btn-group">
+
+                  <button type="button" class="btn btn-shop-category dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                    Shop By Type <span class="caret"></span>
+
+                  </button>
+
+                  <ul class="dropdown-menu">
+                  
+                    <li>
+                        <a href="{{route('products.by.type','new')}}">New</a>
+                    </li>
+
+
+                    <li>
+                        <a href="{{route('products.by.type','upcomming')}}">Upcomming</a>
+                    </li>
+
+
+                    <li>
+                        <a href="{{route('products.by.type','top')}}">Top</a>
+                    </li>
+
+                    <li>
+                        <a href="{{route('products.by.type','best sale')}}">Best Sale</a>
+                    </li>
+
+
+                  </ul>
+
+                </div>
+
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->

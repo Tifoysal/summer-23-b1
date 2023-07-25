@@ -267,7 +267,9 @@
 
                             <div class="product-description text-center">
 
-                                <p class="title">{{$product->name}}</p>
+                                <p class="title">{{$product->name}}
+                                    <span class="badge badge-primary">{{$product->type}}</span>
+                                </p>
 
                                 <p class="price">{{$product->price}} BDT</p>
 

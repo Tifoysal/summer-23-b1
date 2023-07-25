@@ -3,6 +3,9 @@
 @section('content')
 <h1>All Products</h1>
 
+@if(session()->has('msg'))
+                <p class="alert alert-success">{{session()->get('msg')}}</p>
+            @endif
 
 <a href="{{route('product.create.form')}}" class="btn btn-success">Create New Product</a>
 
@@ -34,8 +37,8 @@
       <td>{{$product->status}}</td>
       <td>
         <a class="btn btn-primary"  href="">View</a>
-        <a class="btn btn-warning"  href="">Edit</a>
-        <a  class="btn btn-danger" href="">Delete</a>
+        <a class="btn btn-warning"  href="{{route('product.edit',$product->id)}}">Edit</a>
+        <a  class="btn btn-danger" href="{{route('product.delete',$product->id)}}">Delete</a>
       </td>
     </tr>
     @endforeach

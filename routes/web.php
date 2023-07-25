@@ -26,6 +26,9 @@ Route::get('/',[HomeController::class,'home'])->name('home');
 
 Route::get('/search',[HomeController::class,'search'])->name('search');
 
+
+Route::get('/get-products-type/{type}',[WebsiteProductController::class,'geByType'])->name('products.by.type');
+
 Route::get('/all-products',[WebsiteProductController::class,'allProducts'])->name('website.all-products');
 Route::get('/customer-login',[HomeController::class,'login'])->name('customer.login');
 Route::post('/customer-dologin',[CustomerController::class,'dologin'])->name('customer.dologin');
@@ -65,6 +68,11 @@ Route::post('/brand-store',[BrandController::class,'store'])->name('brand.store'
 
 
 Route::get('/products',[ProductController::class,'list'])->name('product.list');
+
+Route::get('/product/delete/{id}',[ProductController::class,'delete'])->name('product.delete');
+Route::get('/product/edit/{id}',[ProductController::class,'edit'])->name('product.edit');
+Route::put('/product/update/{id}',[ProductController::class,'update'])->name('product.update');
+
 Route::get('/create-product-form',[ProductController::class,'createForm'])->name('product.create.form');
 Route::post('/product-store',[ProductController::class,'store'])->name('product.store');
 

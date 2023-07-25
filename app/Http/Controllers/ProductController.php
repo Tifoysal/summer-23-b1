@@ -17,6 +17,26 @@ class ProductController extends Controller
         return view('backend.pages.product.list',compact('productsCollection'));
     }
 
+   public function delete($id)
+   {
+    
+   $product=Product::find($id);
+   
+   $product->delete();
+
+
+   return redirect()->back()->with('msg','Product Deleted successfully.');
+
+    }
+
+    public function edit($id)
+    {
+        $product=Product::find($id);
+        $categories=Category::all();
+
+        return view('backend.pages.product.edit',compact('product','categories'));
+    }
+
 
     public function createForm()
     {
@@ -59,5 +79,36 @@ class ProductController extends Controller
         ]);
 
         return redirect()->back()->with('msg','Product Created successfully.');
+    }
+
+
+
+    public function update(Request $request,$id)
+    {
+       
+
+       // dd($request->all());//check data are coming or not
+
+        $request->validate([
+            'product_name'=>'required',
+            'product_price'=>'required|gt:100',
+            'product_stock'=>'required|gt:10',
+            'category_id'=>'required'
+        ]);
+
+    
+        $product=Product::find($id);
+    
+
+        $product->update([
+            'name'=>$request->product_name,
+            'category_id'=>$request->category_id,
+            'price'=>$request->product_price,
+            'quantity'=>$request->product_stock,
+            'description'=>$request->description,
+        
+        ]);
+
+        return redirect()->back()->with('msg','Product Updated successfully.');
     }
 }

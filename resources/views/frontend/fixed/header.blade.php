@@ -92,7 +92,7 @@
 
                         <div class="cart-icon">
 
-                            <a href=""><i class="fa fa-shopping-cart"></i></a>
+                            <a href="{{route('cart.view')}}"><i class="fa fa-shopping-cart"></i></a>
 
                         </div>
 
@@ -102,7 +102,7 @@
 
                             <br>
 
-                            0 items - $0.00
+                           {{session()->has('cart')?count(session()->get('cart')):0}} items
 
                         </div>
 

@@ -279,7 +279,7 @@
 
                                 <ul>
 
-                                    <li><a href="single-product.html"><i class="fa fa-cart-arrow-down"></i></a></li>
+                                    <li><a href="{{route('add.to.cart',$product->id)}}"><i class="fa fa-cart-arrow-down"></i></a></li>
 
                                     <li><a href=""><i class="fa fa-arrows-h"></i></a></li>
 

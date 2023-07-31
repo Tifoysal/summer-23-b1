@@ -26,6 +26,15 @@ Route::get('/',[HomeController::class,'home'])->name('home');
 
 Route::get('/search',[HomeController::class,'search'])->name('search');
 
+//cart start here
+Route::get('/add-to-cart/{product_id}',[HomeController::class,'addToCart'])->name('add.to.cart');
+Route::get('/cart-view',[HomeController::class,'cartView'])->name('cart.view');
+Route::get('/cart-item-remove/{id}',[HomeController::class,'cartItemRemove'])->name('cart.item.remove');
+Route::get('/cart-clear',[HomeController::class,'clearCart'])->name('cart.clear');
+
+
+
+
 
 Route::get('/get-products-type/{type}',[WebsiteProductController::class,'geByType'])->name('products.by.type');
 

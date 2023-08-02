@@ -152,5 +152,19 @@ class HomeController extends Controller
       return redirect()->back();
 
     }
+
+    public function logout()
+    {
+      // dd("dsfasfa");
+      auth()->guard('customer')->logout();
+      return redirect()->route('home')->with('msg','Logout Success.');
+    }
+
+
+    public function checkout() {
+
+      return view('frontend.pages.checkout');
+      
+    }
     
 }

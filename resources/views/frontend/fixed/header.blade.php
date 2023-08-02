@@ -24,15 +24,21 @@
 
                 </div>
 
-                <div class="col-md-6">
-
+                <div class="col-md-6">)
                     <div class="action pull-right">
 
                         <ul>
+                            @if(auth('customer')->user())
+                            <li style="color:white"><i class="fa fa-user"></i> {{auth('customer')->user()->name}}</li>
+                            
+                            <li><a href="{{route('customer.logout')}}"><i class="fa fa-key"></i> Logout</a></li>
 
+                             @else 
                             <li><a href="{{route('customer.login')}}"><i class="fa fa-user"></i> Login</a></li>
 
                             <li><a href="{{route('customer.registration')}}"><i class="fa fa-lock"></i> Register</a></li>
+
+                            @endif
 
                         </ul>
 

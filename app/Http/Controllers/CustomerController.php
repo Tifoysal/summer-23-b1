@@ -36,7 +36,7 @@ return redirect()->route('home')->with('msg','Registration success.');
 
         if(auth()->guard('customer')->attempt($credentials))
         {
-            dd("valid user");
+            return redirect()->route('home')->with('msg','login success.');
         }
 
         dd("invalid user");

@@ -94,10 +94,12 @@
               </div>
             </div>
         
+            @if(session()->has('cart'))
             <div class="float-right">
               <button type="button" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3">Back to shopping</button>
-              <button type="button" class="btn btn-lg btn-primary mt-2">Checkout</button>
+              <a href="{{route('checkout')}}" class="btn btn-success">Checkout</a>
             </div>
+            @endif
         
           </div>
       </div>

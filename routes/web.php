@@ -47,6 +47,15 @@ Route::get('/products-under-category/{categoryId}',[WebsiteProductController::cl
 Route::get('/customer-registration',[HomeController::class,'registration'])->name('customer.registration');
 Route::post('/customer-store',[CustomerController::class,'store'])->name('customer.store');
 
+Route::group(['middleware'=>'frontendAuth'],function(){
+
+    Route::get('/checkout',[HomeController::class,'checkout'])->name('checkout');
+    Route::get('/customer-logout',[HomeController::class,'logout'])->name('customer.logout');
+
+});
+
+
+
 
 
 //routes for admin panel
@@ -64,27 +73,22 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'],function(){
     Route::get('/categories',[CategoryController::class,'list'])->name('category.list');
     Route::get('/category-create-form',[CategoryController::class,'categoryForm'])->name('category.create.form');
     Route::post('/category-store',[CategoryController::class,'categoryStore'])->name('category.store');
-    
+    Route::get('/brand-list',[BrandController::class,'list'])->name('brand.list');
+
+    Route::get('/brand-create-form',[BrandController::class,'create'])->name('brand.create');
+
+    Route::post('/brand-store',[BrandController::class,'store'])->name('brand.store');
 
 
+    Route::get('/products',[ProductController::class,'list'])->name('product.list');
 
-Route::get('/brand-list',[BrandController::class,'list'])->name('brand.list');
+    Route::get('/product/delete/{id}',[ProductController::class,'delete'])->name('product.delete');
+    Route::get('/product/edit/{id}',[ProductController::class,'edit'])->name('product.edit');
+    Route::put('/product/update/{id}',[ProductController::class,'update'])->name('product.update');
 
+    Route::get('/create-product-form',[ProductController::class,'createForm'])->name('product.create.form');
+    Route::post('/product-store',[ProductController::class,'store'])->name('product.store');
 
-Route::get('/brand-create-form',[BrandController::class,'create'])->name('brand.create');
-
-Route::post('/brand-store',[BrandController::class,'store'])->name('brand.store');
-
-
-Route::get('/products',[ProductController::class,'list'])->name('product.list');
-
-Route::get('/product/delete/{id}',[ProductController::class,'delete'])->name('product.delete');
-Route::get('/product/edit/{id}',[ProductController::class,'edit'])->name('product.edit');
-Route::put('/product/update/{id}',[ProductController::class,'update'])->name('product.update');
-
-Route::get('/create-product-form',[ProductController::class,'createForm'])->name('product.create.form');
-Route::post('/product-store',[ProductController::class,'store'])->name('product.store');
-
-Route::get('/orders',[OrderController::class,'list'])->name('order.list');
+    Route::get('/orders',[OrderController::class,'list'])->name('order.list');
 
 });

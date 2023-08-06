@@ -50,6 +50,8 @@ Route::post('/customer-store',[CustomerController::class,'store'])->name('custom
 Route::group(['middleware'=>'frontendAuth'],function(){
 
     Route::get('/checkout',[HomeController::class,'checkout'])->name('checkout');
+    Route::post('/place-order',[HomeController::class,'placeOrder'])->name('place.order');
+    
     Route::get('/customer-logout',[HomeController::class,'logout'])->name('customer.logout');
 
 });

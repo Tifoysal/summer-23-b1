@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\Product;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class HomeController extends Controller
 {
@@ -163,8 +167,62 @@ class HomeController extends Controller
 
     public function checkout() {
 
+      
       return view('frontend.pages.checkout');
       
+    }
+
+    public function placeOrder(Request $request){
+
+      $request->validate([
+        //input fields here => rules here
+      ]);
+
+      $myCart=session()->get('cart');
+
+      // dd($myCart);//
+
+      // dd($request->all());
+      
+      try
+      {
+        DB::beginTransaction();
+        //create order first
+        $order=Order::create([
+            'customer_id'=>auth('customer')->user()->id,
+            'name'=>$request->first_name . ' ' . $request->last_name,
+            'email'=>$request->email,
+            'address'=>$request->address,
+            'payment_method'=>$request->paymentMethod,
+            'total'=>array_sum(array_column($myCart,'sub_total')),
+          ]);
+  
+  
+          //order details create
+          foreach($myCart as $key=>$cart)
+          {
+            
+            OrderDetail::create([
+              'order_id'=>$order->id,
+              'product_id'=>$key,
+              'price'=>$cart['price'],
+              'qty'=>$cart['quantity'],
+              'subtotal'=>$cart['sub_total'],
+            ]);
+  
+          }
+          DB::commit();
+          return redirect()->back()->with('msg','Order Place success.');
+      }catch(Throwable $e)
+      {
+        DB::rollBack();
+        return redirect()->back()->with('msg','Something went wrong');
+
+      }
+     
+
+     
+
     }
     
 }

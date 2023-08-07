@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -119,8 +120,8 @@ class HomeController extends Controller
        }
 
       
-       
-       return redirect()->back()->with('msg','Product added to cart.');
+       Toastr::success('Product Added to Cart.');
+       return redirect()->back();
 
 
     }
@@ -212,11 +213,13 @@ class HomeController extends Controller
   
           }
           DB::commit();
-          return redirect()->back()->with('msg','Order Place success.');
+          Toastr::success('Order Placed.');
+          return redirect()->back();
       }catch(Throwable $e)
       {
         DB::rollBack();
-        return redirect()->back()->with('msg','Something went wrong');
+        Toastr::error('Something went wrong.');
+        return redirect()->back();
 
       }
      

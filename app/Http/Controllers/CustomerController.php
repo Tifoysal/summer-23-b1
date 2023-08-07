@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -36,10 +37,12 @@ return redirect()->route('home')->with('msg','Registration success.');
 
         if(auth()->guard('customer')->attempt($credentials))
         {
+            Toastr::success('Login Success.');
             return redirect()->route('home')->with('msg','login success.');
         }
 
-        dd("invalid user");
+        Toastr::error('Invalid Credentials.');
+        return redirect()->back();
 
 
     }

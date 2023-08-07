@@ -29,6 +29,9 @@
 
     <link rel="stylesheet" href="http://labs.bootstrapthemes.co/demo/html/Orani/css/responsive.css">
 
+	<link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+
+
 </head>
 
 <body>
@@ -53,6 +56,9 @@
 	<!-- Script -->
 
 	<script src="http://labs.bootstrapthemes.co/demo/html/Orani/js/script.js"></script>
+	<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+	{!! Toastr::message() !!}
+
 
 </body>
 

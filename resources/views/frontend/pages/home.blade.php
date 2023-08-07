@@ -8,9 +8,7 @@
 <div class="slider">
 
 
-@if(session()->has('msg'))
-                <p class="alert alert-success">{{session()->get('msg')}}</p>
-            @endif
+           
             
 <div class="container">
 

@@ -92,5 +92,6 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'],function(){
     Route::post('/product-store',[ProductController::class,'store'])->name('product.store');
 
     Route::get('/orders',[OrderController::class,'list'])->name('order.list');
+    Route::get('/orders/view/{id}',[OrderController::class,'view'])->name('order.view');
 
 });

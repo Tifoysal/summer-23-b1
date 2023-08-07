@@ -11,4 +11,9 @@ class Order extends Model
 
     protected $guarded=[];
     // protected $fillable=['name','address'];
+
+
+    public function customer(){
+        return $this->belongsTo(Customer::class);
+    }
 }

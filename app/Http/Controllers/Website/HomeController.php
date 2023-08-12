@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
+use App\Library\SslCommerz\SslCommerzNotification;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\OrderDetail;
@@ -15,6 +16,8 @@ use Throwable;
 
 class HomeController extends Controller
 {
+
+  
     public function home()
     {
     
@@ -179,6 +182,8 @@ class HomeController extends Controller
         //input fields here => rules here
       ]);
 
+      
+
       $myCart=session()->get('cart');
 
       // dd($myCart);//
@@ -196,6 +201,7 @@ class HomeController extends Controller
             'address'=>$request->address,
             'payment_method'=>$request->paymentMethod,
             'total'=>array_sum(array_column($myCart,'sub_total')),
+            'payment_status'=>'pending',
           ]);
   
   
@@ -212,7 +218,15 @@ class HomeController extends Controller
             ]);
   
           }
+
           DB::commit();
+
+          if($request->paymentMethod == 'ssl')
+          {
+            
+            // redirect to payment page
+            $this->payNow($order);
+          }
           Toastr::success('Order Placed.');
           return redirect()->back();
       }catch(Throwable $e)
@@ -222,10 +236,60 @@ class HomeController extends Controller
         return redirect()->back();
 
       }
-     
 
-     
+    }
 
+
+    public function payNow($orderData)
+    {
+        $post_data = array();
+        $post_data['total_amount'] = $orderData->total; # You cant not pay less than 10
+        $post_data['currency'] = "BDT";
+        $post_data['tran_id'] = $orderData->id; // tran_id must be unique
+
+        # CUSTOMER INFORMATION
+        $post_data['cus_name'] = $orderData->name;
+        $post_data['cus_email'] = $orderData->email;
+        $post_data['cus_add1'] = $orderData->address;
+        $post_data['cus_add2'] = "";
+        $post_data['cus_city'] = "";
+        $post_data['cus_state'] = "";
+        $post_data['cus_postcode'] = "";
+        $post_data['cus_country'] = "Bangladesh";
+        $post_data['cus_phone'] = '8801XXXXXXXXX';
+        $post_data['cus_fax'] = "";
+
+        # SHIPMENT INFORMATION
+        $post_data['ship_name'] = "Store Test";
+        $post_data['ship_add1'] = "Dhaka";
+        $post_data['ship_add2'] = "Dhaka";
+        $post_data['ship_city'] = "Dhaka";
+        $post_data['ship_state'] = "Dhaka";
+        $post_data['ship_postcode'] = "1000";
+        $post_data['ship_phone'] = "";
+        $post_data['ship_country'] = "Bangladesh";
+
+        $post_data['shipping_method'] = "NO";
+        $post_data['product_name'] = "Computer";
+        $post_data['product_category'] = "Goods";
+        $post_data['product_profile'] = "physical-goods";
+
+        # OPTIONAL PARAMETERS
+        $post_data['value_a'] = "ref001";
+        $post_data['value_b'] = "ref002";
+        $post_data['value_c'] = "ref003";
+        $post_data['value_d'] = "ref004";
+
+
+
+        $sslc = new SslCommerzNotification();
+        # initiate(Transaction Data , false: Redirect to SSLCOMMERZ gateway/ true: Show all the Payement gateway here )
+        $payment_options = $sslc->makePayment($post_data, 'hosted');
+
+        if (!is_array($payment_options)) {
+            print_r($payment_options);
+            $payment_options = array();
+        }
     }
     
 }

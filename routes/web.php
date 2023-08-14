@@ -113,5 +113,6 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'],function(){
 
     Route::get('/orders',[OrderController::class,'list'])->name('order.list');
     Route::get('/orders/view/{id}',[OrderController::class,'view'])->name('order.view');
+    Route::get('/profile',[UserController::class,'profile'])->name('admin.profile');
 
 });

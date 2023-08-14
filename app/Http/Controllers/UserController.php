@@ -54,4 +54,11 @@ class UserController extends Controller
 
         return redirect()->route('admin.login')->with('msg','Logout Success');
     }
+
+    public function profile()
+    {
+       
+        
+        return view('backend.pages.profile');
+    }
 }

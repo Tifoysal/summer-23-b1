@@ -13,20 +13,25 @@
                 Categories
             </a>
 
+           
+            @if(auth()->user()->role =='admin')
             <a class="nav-link" href="{{route('brand.list')}}">
                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                 Brand
             </a>
+            <a class="nav-link" href="{{route('order.list')}}">
+                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                Orders
+            </a>
+
+            @endif
 
             <a class="nav-link" href="{{route('product.list')}}">
                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                 Products
             </a>
 
-            <a class="nav-link" href="{{route('order.list')}}">
-                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                Orders
-            </a>
+           
 
 
 

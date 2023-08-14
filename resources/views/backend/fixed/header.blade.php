@@ -19,6 +19,7 @@
                 <li><a class="dropdown-item" href="#!">
                     {{auth()->user()->name}}
                 </a></li>
+                <li><a class="dropdown-item" href="{{route('admin.profile')}}">Profile</a></li>
                 <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                 <li><hr class="dropdown-divider" /></li>
                 <li>

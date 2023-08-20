@@ -182,7 +182,18 @@ class HomeController extends Controller
         //input fields here => rules here
       ]);
 
-      
+      // session()->put('someKey','Kodeeo');
+      // session()->put('anotherKey','some data here');
+
+      // session()->get('someKey');
+    
+      // session()->get('anotherKey');
+
+      // session()->flush();
+
+      //session- store: session()->put('key');
+      //session- get: session()->get('key');
+      //session- forget/clear/remove: session()->forget('key');
 
       $myCart=session()->get('cart');
 
@@ -223,12 +234,17 @@ class HomeController extends Controller
 
           if($request->paymentMethod == 'ssl')
           {
-            
+           
             // redirect to payment page
             $this->payNow($order);
           }
+
           Toastr::success('Order Placed.');
-          return redirect()->back();
+
+          //assume that order placed succssfully. 
+          session()->forget('cart');
+
+          return redirect()->route('home');
       }catch(Throwable $e)
       {
         DB::rollBack();
@@ -242,6 +258,7 @@ class HomeController extends Controller
 
     public function payNow($orderData)
     {
+     
         $post_data = array();
         $post_data['total_amount'] = $orderData->total; # You cant not pay less than 10
         $post_data['currency'] = "BDT";
@@ -280,7 +297,7 @@ class HomeController extends Controller
         $post_data['value_c'] = "ref003";
         $post_data['value_d'] = "ref004";
 
-
+     
 
         $sslc = new SslCommerzNotification();
         # initiate(Transaction Data , false: Redirect to SSLCOMMERZ gateway/ true: Show all the Payement gateway here )

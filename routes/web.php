@@ -65,7 +65,7 @@ Route::group(['middleware'=>'frontendAuth'],function(){
 Route::post('/pay', [SslCommerzPaymentController::class, 'index']);//hosted checkout
 // Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);//easy checkout
 
-Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/success', [SslCommerzPaymentController::class, 'success'])->name('payment.success');
 Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
 Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
 

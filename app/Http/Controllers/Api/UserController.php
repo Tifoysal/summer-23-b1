@@ -59,4 +59,12 @@ class UserController extends Controller
         return $this->responseWithError('Invalid User.');
 
     }
+
+    public function logout()
+    {
+        
+        Auth::guard('api')->logout();
+
+        return $this->responseWithSuccess([],'Logout Successful.');
+    }
 }

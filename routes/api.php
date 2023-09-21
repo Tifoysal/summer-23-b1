@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/get/products',[ProductController::class,'getProducts']);
+
 Route::get('/get/product/{id}',[ProductController::class,'productView']);
 Route::post('/create/product',[ProductController::class,'create']);
 
@@ -25,3 +25,9 @@ Route::put('/product/update/{id}',[ProductController::class, 'update']);
 
 Route::post('/login',[UserController::class, 'login']);
 Route::post('/registration',[UserController::class, 'registration']);
+
+
+Route::group(['middleware'=>'auth:api'],function(){
+    Route::get('/get/products',[ProductController::class,'getProducts']);
+    Route::get('/logout',[UserController::class,'logout']);
+});

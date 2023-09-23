@@ -51,11 +51,9 @@ class UserController extends Controller
 
         if($token)
         {
-            //valid
             return $this->responseWithSuccess($token,'Login Success');
         }
-
-        //invalid
+        
         return $this->responseWithError('Invalid User.');
 
     }

@@ -23,6 +23,8 @@ use App\Http\Controllers\Website\SslCommerzPaymentController;
 |
 */
 
+require __DIR__.'/sobuj.php';
+
 //routes for website
 Route::get('/',[HomeController::class,'home'])->name('home');
 

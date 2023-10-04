@@ -2,12 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    
+    public function roleList(){
+        $allList=Role::paginate(8);
+        return view('backend.pages.roles.list',compact('allList'));
+    }
+    public function roleCreate(){
+        return view('backend.pages.roles.create');
+    }
+    public function roleStore(Request $request){
+
+       $request->validate([
+        'role_name'=>'required'
+       ]);
+
+       Role::create([
+        'name'=>$request->role_name
+       ]);
+      
+       return redirect()->back()->with('msg', 'successfully crated');
+    }
+    public function roleAssign(){
+        return view('backend.pages.roles.assign');
+    }
+
     public function login() 
     {
        

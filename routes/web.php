@@ -79,6 +79,15 @@ Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 
 
 
+//RoleController
+//role
+Route::get('/role-list',[UserController::class,'roleList'])->name('role.list');
+Route::get('/role-create',[UserController::class,'roleCreate'])->name('role.create');
+Route::post('/role-store',[UserController::class,'roleStore'])->name('role.store');
+Route::get('/role-asign',[UserController::class,'roleAssign'])->name('role.assign');
+
+
+
 
 //routes for admin panel
 //show login form

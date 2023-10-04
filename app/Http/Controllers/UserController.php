@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permission;
 use App\Models\Role;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
@@ -29,7 +30,9 @@ class UserController extends Controller
        return redirect()->back()->with('msg', 'successfully crated');
     }
     public function roleAssign(){
-        return view('backend.pages.roles.assign');
+
+        $permissions=Permission::all();
+        return view('backend.pages.roles.assign',compact('permissions'));
     }
 
     public function login() 

@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
 Route::get('/get/product/{id}',[ProductController::class,'productView']);
 Route::post('/create/product',[ProductController::class,'create']);
 

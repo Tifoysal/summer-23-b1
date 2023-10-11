@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Permission;
 use App\Models\Role;
+use App\Models\RolePermission;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -29,10 +31,14 @@ class UserController extends Controller
       
        return redirect()->back()->with('msg', 'successfully crated');
     }
-    public function roleAssign(){
+    public function roleAssign($id){
 
+        $role=Role::with('permissions')->find($id);
+        
+        $assignedPermissions=$role->permissions->pluck('permission_id')->toArray();
+        // dd($assignedPermissions);
         $permissions=Permission::all();
-        return view('backend.pages.roles.assign',compact('permissions'));
+        return view('backend.pages.roles.assign',compact('permissions','role','assignedPermissions'));
     }
 
     public function login() 
@@ -65,10 +71,7 @@ class UserController extends Controller
             //false block
 
             return redirect()->back()->withErrors(['Invalid login information']);
-
         }
-
-
 
     }
 
@@ -87,5 +90,35 @@ class UserController extends Controller
        
         
         return view('backend.pages.profile');
+    }
+
+    public function assingPermission(Request $request,$role_id)
+    {
+       
+        $validate=Validator::make($request->all(),[
+            'permission'=>'required'
+        ]);
+
+        if($validate->fails())
+        {
+            dd($validate->getMessageBag());
+        }
+
+        // dd($request->all());
+
+        RolePermission::where('role_id',$role_id)->delete();
+
+        foreach($request->permission as $permission)
+        {
+            RolePermission::create([
+                'permission_id'=>$permission,
+                'role_id'=>$role_id,//2
+            ]);
+        }
+
+        return redirect()->back();
+
+
+        
     }
 }

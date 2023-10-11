@@ -26,7 +26,7 @@
                 <td>{{$item->name}}</td>
                 <td>{{$item->status}}</td>
                 <td>
-                    <a href="{{route('role.assign')}}" class="btn btn-secondary">Assign</a>
+                    <a href="{{route('role.assign',$item->id)}}" class="btn btn-secondary">Assign</a>
                 </td>
             </tr>
         @endforeach

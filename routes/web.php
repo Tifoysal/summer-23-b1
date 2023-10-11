@@ -85,7 +85,8 @@ Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 Route::get('/role-list', [UserController::class, 'roleList'])->name('role.list');
 Route::get('/role-create', [UserController::class, 'roleCreate'])->name('role.create');
 Route::post('/role-store', [UserController::class, 'roleStore'])->name('role.store');
-Route::get('/role-asign', [UserController::class, 'roleAssign'])->name('role.assign');
+Route::get('/role-asign/{role_id}', [UserController::class, 'roleAssign'])->name('role.assign');
+Route::post('/assign-permission/{role_id}', [UserController::class, 'assingPermission'])->name('assign.permission');
 
 
 

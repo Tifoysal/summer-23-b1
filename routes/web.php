@@ -101,7 +101,7 @@ Route::group(['prefix' => 'admin'], function () {
     //submit login form
     Route::post('/do-login', [UserController::class, 'doLogin'])->name('admin.do-login');
 
-    Route::group(['middleware' => 'auth'], function () {
+    Route::group(['middleware' => ['auth','checkPermission']], function () {
 
         Route::get('/logout', [UserController::class, 'logout'])->name('admin.logout');
         Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');

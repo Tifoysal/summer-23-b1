@@ -2,16 +2,21 @@
     <div class="sb-sidenav-menu">
         <div class="nav">
             <div class="sb-sidenav-menu-heading">Core</div>
-            <a class="nav-link" href="index.html">
+
+            @if(checkUserPermission('dashboard'))
+            <a class="nav-link" href="{{route('dashboard')}}">
                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                 Dashboard
             </a>
+            @endif
 
 
+            @if(checkUserPermission('category.list'))
             <a class="nav-link" href="{{route('category.list')}}">
                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                 Categories
             </a>
+            @endif
 
            
             @if(auth()->user()->role =='admin')

@@ -5,9 +5,9 @@
 
 <h1>Categories</h1>
 
-
+@if(checkUserPermission('category.create.form'))
 <a href="{{route('category.create.form')}}" class="btn btn-success">Create</a>
-
+@endif
 
     <table class="table">
         <thead>

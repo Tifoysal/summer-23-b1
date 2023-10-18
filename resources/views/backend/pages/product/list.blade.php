@@ -28,7 +28,7 @@
     <tr>
       <th scope="row">{{$product->id}}</th>
       <td>{{$product->name}}</td>
-      <td>{{$product->bou->name}}</td>
+      <td>{{$product->category->name}}</td>
       <td>
         <img style="width: 50px;" src="{{url('/uploads/products/'.$product->image)}}" alt="">
       </td>

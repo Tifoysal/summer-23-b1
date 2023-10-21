@@ -29,7 +29,7 @@
 
                         <ul>
                             @if(auth('customer')->user())
-                            <li style="color:white"><i class="fa fa-user"></i> {{auth('customer')->user()->name}}</li>
+                            <li style="color:white"><i class="fa fa-user"></i> {{auth('customer')->user()->full_name}}</li>
                             
                             <li><a href="{{route('customer.logout')}}"><i class="fa fa-key"></i> Logout</a></li>
 

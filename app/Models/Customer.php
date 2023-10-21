@@ -32,4 +32,30 @@ class Customer extends Authenticatable implements JWTSubject
     protected $hidden=[
         'password'
     ];
+    
+    //full_name=FullName
+    //get + attribute name + attribute 
+    public function getFullNameAttribute(){
+
+        return $this->first_name.' '. $this->last_name;
+
+    }
+
+
+    public function setFirstNameAttribute($value)
+    {
+
+        return $this->attributes['first_name']=ucfirst($value);
+
+    }
+
+    public function setEmailAttribute($value)
+    {
+
+        return $this->attributes['email']=strtolower($value);
+
+    }
+
+
+
 }

@@ -18,7 +18,8 @@ class CustomerController extends Controller
         ]);
         
         Customer::create([
-            'name'=>$request->name,
+            'first_name'=>$request->name,
+            'last_name'=>"khan",
             'password'=>bcrypt($request->password),
             'email'=>$request->email,
         ]);
@@ -43,7 +44,7 @@ return redirect()->route('home')->with('msg','Registration success.');
 
         Toastr::error('Invalid Credentials.');
         return redirect()->back();
-
+       
 
     }
 }

@@ -5,16 +5,38 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use DataTables;
 
 class ProductController extends Controller
 {
     public function list()
     {
         
-        $productsCollection=Product::with('category')->paginate(10);
-        // dd($productsCollection);
+        // $productsCollection=Product::with('category')->where('status','active')->paginate(100);
+        // // dd($productsCollection);
 
-        return view('backend.pages.product.list',compact('productsCollection'));
+
+
+
+        return view('backend.pages.product.list');
+    }
+
+    public function ajaxProduct()
+    {
+
+        $data = Product::select('id','name','price','status')->get();
+        return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+ 
+                       $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+
+                        return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+    
+    
     }
 
    public function delete($id)

@@ -117,6 +117,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 
         Route::get('/products', [ProductController::class, 'list'])->name('product.list');
+        Route::get('/products-ajax', [ProductController::class, 'ajaxProduct'])->name('product.ajaxProduct');
 
         Route::get('/product/delete/{id}', [ProductController::class, 'delete'])->name('product.delete');
         Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');

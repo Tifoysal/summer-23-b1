@@ -17,14 +17,20 @@ class CheckPermission
     public function handle(Request $request, Closure $next): Response
     {
 
-        $route = Route::current()->getName();
-    
-        if(checkUserPermission($route))
+        if(auth()->user()->role_id==1)
         {
             return $next($request);
+        }else{
+            $route = Route::current()->getName();
+    
+            if(checkUserPermission($route))
+            {
+                return $next($request);
+            }
+           toastr()->warning('You do not have persmission');
+            return redirect()->back();
+    
         }
-       toastr()->warning('You do not have persmission');
-        return redirect()->back();
-
+       
     }
 }

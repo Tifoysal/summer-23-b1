@@ -9,41 +9,50 @@
 
 <a href="{{route('product.create.form')}}" class="btn btn-success">Create New Product</a>
 
-<table class="table">
+<table class="productTable">
   <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">Name</th>
-      <th scope="col">Category</th>
-      <th scope="col">Image</th>
       <th scope="col">Price</th>
-      <th scope="col">Quantity</th>
       <th scope="col">Status</th>
       <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
 
-  @foreach($productsCollection as $product)
-    <tr>
-      <th scope="row">{{$product->id}}</th>
-      <td>{{$product->name}}</td>
-      <td>{{$product->category->name}}</td>
-      <td>
-        <img style="width: 50px;" src="{{url('/uploads/products/'.$product->image)}}" alt="">
-      </td>
-      <td>{{$product->price}}</td>
-      <td>{{$product->quantity}}</td>
-      <td>{{$product->status}}</td>
-      <td>
-        <a class="btn btn-primary"  href="">View</a>
-        <a class="btn btn-warning"  href="{{route('product.edit',$product->id)}}">Edit</a>
-        <a  class="btn btn-danger" href="{{route('product.delete',$product->id)}}">Delete</a>
-      </td>
-    </tr>
-    @endforeach
+
 
   </tbody>
 </table>
 
+
+
+
 @endsection
+
+
+@push('js')
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">
+  $(function () {
+   
+    var table = $('.productTable').DataTable({
+        processing: true,
+        serverSide: false,
+        ajax: "{{ route('product.ajaxProduct') }}",
+        
+        columns: [
+            {data: 'id', name: 'id'},
+            {data: 'name', name: 'name',searchable:true},
+            {data: 'price', name: 'price'},
+            {data: 'status', name: 'status'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+        ]
+    });
+    
+  });
+</script>
+  
+@endpush

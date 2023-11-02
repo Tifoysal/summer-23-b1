@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('phone',30)->nullable();
             $table->string('status',20)->default('active');
             $table->text('address')->nullable();
+            $table->text('token')->nullable();
+            $table->datetime('token_expired_at')->nullable();
             $table->timestamps();
         });
     }

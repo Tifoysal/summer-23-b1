@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\ForgetPasswordMail;
 use App\Models\Customer;
 use Brian2694\Toastr\Facades\Toastr;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -75,7 +76,8 @@ return redirect()->route('home')->with('msg','Registration success.');
             $token=Str::random(32);
            
             $customer->update([
-                'token'=>$token
+                'token'=>$token,
+                'token_expired_at'=>Carbon::now()->addMinutes(3),
             ]);
 
             $link=route('click.reset.link',$token);
@@ -93,4 +95,46 @@ return redirect()->route('home')->with('msg','Registration success.');
 
         
     }
+
+    public function clickResetLink($token){
+
+       $customer=Customer::where('token',$token)->whereDate('token_expired_at','=',now())
+                        ->whereTime('token_expired_at','>=',now())
+                        ->first();
+       if($customer)
+       {
+         return view('frontend.pages.reset-password',compact('token'));
+       }
+
+       Toastr::error('Token expired or invalid. Please resend.');
+      return redirect()->route('customer.login');
+    }
+
+    public function resetPassword(Request $request, $token)
+    {
+
+        $validate=Validator::make($request->all(),[
+            'password'=>'required|confirmed'
+        ]);
+
+        if($validate->fails())
+        {
+          Toastr::error($validate->getMessageBag());
+          return redirect()->back();  
+        }
+
+        $customer=Customer::where('token',$token)->first();
+        if($customer)
+        {
+            $customer->update([
+                'password'=>bcrypt($request->password)
+            ]);
+        }
+
+        Toastr::success('Your password reset successfully.');
+        return redirect()->route('customer.login');
+        
+    }
+
+
 }

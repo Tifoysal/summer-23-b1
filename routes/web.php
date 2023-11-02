@@ -49,6 +49,7 @@ Route::post('/customer-dologin', [CustomerController::class, 'dologin'])->name('
 //send forget password link to email
 Route::post('/send/password/reset-link',[CustomerController::class,'sendResetLink'])->name('send.reset.link');
 Route::get('/click-reset-link/{token}',[CustomerController::class, 'clickResetLink'])->name('click.reset.link');
+Route::post('/reset-password/{token}',[CustomerController::class, 'resetPassword'])->name('reset.password');
 
 
 Route::get('/products-under-category/{categoryId}', [WebsiteProductController::class, 'categoryWiseProducts'])->name('category.products');

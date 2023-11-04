@@ -15,9 +15,6 @@ class ProductController extends Controller
         // $productsCollection=Product::with('category')->where('status','active')->paginate(100);
         // // dd($productsCollection);
 
-
-
-
         return view('backend.pages.product.list');
     }
 
@@ -25,6 +22,7 @@ class ProductController extends Controller
     {
 
         $data = Product::select('id','name','price','status')->get();
+        
         return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){

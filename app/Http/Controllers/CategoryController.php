@@ -3,16 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class CategoryController extends Controller
 {
     public function list()
     {
-       
-        $categories=Category::paginate(5);
+    //    Cache::forget('categories');
+        if(Cache::has('categories'))
+        {
+            $dataSource="data from Cache";
+            $categories=Cache::get('categories');
 
-        return view('backend.pages.category.list',compact('categories'));
+        }else{
+            $dataSource="data from Database";
+            $categories=Category::paginate(10);
+
+            Cache::put('categories',$categories);
+        }
+
+
+        return view('backend.pages.category.list',compact('categories','dataSource'));
     }
 
     public function categoryForm()
@@ -33,13 +48,22 @@ class CategoryController extends Controller
 //        dd($request->all());
         // sql= insert into categories (name,description) values()
         //eloquent ORM
-        Category::create([
-           //bam pase table er column name => dan pase input field er nam
-            'name'=>$request->category_name,
-            'description'=>$request->description// nullable
-        ]);
+        try{
+            Category::create([
+                //bam pase table er column name => dan pase input field er nam
+                 'name'=>$request->category_name,
+                 'description'=>$request->description// nullable
+             ]);
+     
+             return redirect()->route('category.list');
+        }catch(Throwable $ex){
+            // dd($ex->getMessage());
+            Log::debug($ex->getMessage());
 
-        return redirect()->route('category.list');
+            Toastr::error("Something went wrong. try agian.");
+            return redirect()->route('category.list');
+        }
+       
 
 
 

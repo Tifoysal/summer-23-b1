@@ -4,7 +4,7 @@
 @section('content')
 
 <h1>Categories</h1>
-
+<h3>{{$dataSource}}</h3>
 @if(checkUserPermission('category.create.form'))
 <a href="{{route('category.create.form')}}" class="btn btn-success">Create</a>
 @endif

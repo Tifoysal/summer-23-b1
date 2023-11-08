@@ -11,6 +11,7 @@ use App\Models\Product;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
@@ -20,10 +21,20 @@ class HomeController extends Controller
   
     public function home()
     {
+
+      // dd(App::getLocale());
     
       $allProducts=Product::latest()->take(4)->get();
       
       return view('frontend.pages.home',compact('allProducts'));
+    }
+
+    public function changeLang($lang)
+    {
+      App::setLocale($lang);
+      session()->put('locale',$lang);
+      
+      return redirect()->route('home');
     }
 
 

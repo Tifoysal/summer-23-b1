@@ -269,7 +269,7 @@
                                     <span class="badge badge-primary">{{$product->type}}</span>
                                 </p>
 
-                                <p class="price">{{$product->price}} BDT</p>
+                                <p class="price">{{$product->price}} {{__('currency')}}</p>
 
                             </div>
 

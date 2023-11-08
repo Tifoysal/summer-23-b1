@@ -25,8 +25,11 @@ use App\Http\Controllers\Website\SslCommerzPaymentController;
 
 require __DIR__ . '/sobuj.php';
 
+Route::group(['middleware'=>'local'],function(){
+
 //routes for website
 Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::get('/change-lang/{lang}', [HomeController::class, 'changeLang'])->name('change.lang');
 
 Route::get('/search', [HomeController::class, 'search'])->name('search');
 
@@ -137,4 +140,6 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/profile', [UserController::class, 'profile'])->name('admin.profile');
         Route::get('/ashik', [UserController::class, 'ashik'])->name('admin.ashik');
     });
+});
+
 });

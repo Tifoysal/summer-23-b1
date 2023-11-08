@@ -37,8 +37,18 @@
                             <li><a href="{{route('customer.login')}}"><i class="fa fa-user"></i> Login</a></li>
 
                             <li><a href="{{route('customer.registration')}}"><i class="fa fa-lock"></i> Register</a></li>
+                            
 
                             @endif
+
+                            <li>
+                                <select class="form-control" name="" id="" onchange="location = this.options[this.selectedIndex].value;">
+                                    <option @if(session()->get('locale')=='en') selected @endif value="{{route('change.lang','en')}}">English</option>
+                                    <option @if(session()->get('locale')=='bn') selected @endif value="{{route('change.lang','bn')}}">Bangla</option>
+                                    <option @if(session()->get('locale')=='ar') selected @endif value="{{route('change.lang','ar')}}">Arabic</option>
+                                  
+                                </select>
+                            </li>
 
                         </ul>
 
@@ -104,7 +114,7 @@
 
                         <div class="cart-text">
 
-                            SHOPPING CART
+                            {{ __('SHOPPING CART') }}
 
                             <br>
 

@@ -58,6 +58,10 @@ Route::post('/reset-password/{token}',[CustomerController::class, 'resetPassword
 Route::get('/products-under-category/{categoryId}', [WebsiteProductController::class, 'categoryWiseProducts'])->name('category.products');
 
 Route::get('/customer-registration', [HomeController::class, 'registration'])->name('customer.registration');
+
+Route::get('/verify-otp-form', [HomeController::class, 'otpForm'])->name('customer.otp.form');
+Route::post('/verify-otp', [HomeController::class, 'verifyOtp'])->name('customer.otp.verify');
+
 Route::post('/customer-store', [CustomerController::class, 'store'])->name('customer.store');
 
 Route::group(['middleware' => 'frontendAuth'], function () {

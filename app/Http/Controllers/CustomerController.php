@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CustomerRegistrationRequest;
 use App\Mail\ForgetPasswordMail;
 use App\Mail\SendOtpMail;
 use App\Models\Customer;
@@ -14,18 +15,10 @@ use Illuminate\Support\Str;
 
 class CustomerController extends Controller
 {
-    public function store(Request $request)
+    public function store(CustomerRegistrationRequest $request)
     {
-
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:customers',
-            'password' => 'required|min:6'
-        ]);
-
         $otp=rand(100000,999999);
         
-
         Customer::create([
             'first_name' => $request->name,
             'last_name' => "khan",
@@ -42,6 +35,27 @@ class CustomerController extends Controller
         return redirect()->route('customer.otp.form');
     }
 
+
+    public function update(CustomerRegistrationRequest $request)
+    {
+       
+        $otp=rand(100000,999999);
+        
+        Customer::create([
+            'first_name' => $request->name,
+            'last_name' => "khan",
+            'password' => bcrypt($request->password),
+            'email' => $request->email,
+            'otp' => $otp,
+            'otp_expired_at' => Carbon::now()->addMinutes(3),
+        ]);
+
+        //send otp to customer email
+        Mail::to($request->email)->send(new SendOtpMail($otp));
+
+        Toastr::success('Registration success.');
+        return redirect()->route('customer.otp.form');
+    }
 
     public function dologin(Request $request)
     {

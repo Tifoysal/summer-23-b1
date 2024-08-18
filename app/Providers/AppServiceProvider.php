@@ -23,13 +23,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-      
-           
-            $categories=Category::all();
 
-            View::share('cats',$categories); 
-    
-        
+
+            // $categories=Category::all();
+
+            // View::share('cats',$categories);
+
+
 
 
 
